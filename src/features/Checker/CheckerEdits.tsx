@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const steps = ['Start', 'Update Details', 'Completed'];
+const steps = ['Start', 'Update Details', 'Approve Details', 'Completed'];
 
 
 export const CheckerEdits = () => {
@@ -26,14 +26,14 @@ export const CheckerEdits = () => {
         <Box>
             <Box sx={{ p: 3 }}>
 
-                <Typography variant="h3"> Maker  </Typography>
+                <Typography variant="h3"> Checker  </Typography>
                 <br />
-                <Typography variant='body2'> Updating {task.firstName}'s Task</Typography>
+                <Typography variant='body2'> Working on {task.firstName}'s Task</Typography>
 
                 <br />
 
                 <Box sx={{ p: 1, py: '32px' }}>
-                    <ProcessSteps steps={steps} currentStep={1} />
+                    <ProcessSteps steps={steps} currentStep={2} />
                 </Box>
                 <Box sx={{ my: 3 }}>
                     <CheckerForm payload={task} />

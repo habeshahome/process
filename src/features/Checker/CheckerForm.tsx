@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, FormControl, FormLabel, Input, Stack } from "@mui/material"
 import axios from "axios"
+import { enqueueSnackbar } from "notistack"
 import { useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export interface inputFieldsInterface {
     nationalID: string,
@@ -32,8 +33,11 @@ export const CheckerForm = (props: CheckerFormProps) => {
     const [inputFields, setInputFields] = useState({})
 
     const id = useParams()
+    const navigate = useNavigate()
 
-    const submit = async () => {
+
+    const submit = async (e: React.FormEvent) => {
+        e.preventDefault()
         await axios
             .post(`http://localhost:3000/tasks/${id}`, {
                 headers: {
@@ -48,10 +52,12 @@ export const CheckerForm = (props: CheckerFormProps) => {
             )
             .then(response => {
                 console.log(response)
-                alert(response)
+                enqueueSnackbar('Notify')
+                navigate('/checker')
             })
             .catch(err => {
-                alert(err)
+                enqueueSnackbar('Notify')
+                navigate('/checker')
             })
     }
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -150,9 +156,9 @@ export const CheckerForm = (props: CheckerFormProps) => {
                 </Box>
 
                 <Stack direction='row' gap={3} justifyContent='space-between' sx={{ width: '50vw', ml: 'auto', my: '64px' }}>
-                    <Button type="submit" size='large' variant='contained' color='primary'> Approve </Button>
-                    <Button size='large' variant='contained' color='error'> Decline </Button>
-                    <Button size='large' variant='outlined'> Return to Maker </Button>
+                    <Button onClick={submit} size='large' variant='contained' color='primary'> Approve </Button>
+                    <Button onClick={submit} size='large' variant='contained' color='error'> Reject </Button>
+                    <Button onClick={submit} size='large' variant='outlined'> Return to Maker </Button>
                 </Stack>
             </form >
         </>

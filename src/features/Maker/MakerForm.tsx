@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, FormControl, FormLabel, Input, Stack } from "@mui/material"
 import axios from "axios"
+import { enqueueSnackbar } from "notistack"
 import { useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export interface inputFieldsInterface {
     nationalID: string,
@@ -32,10 +33,12 @@ export const MakerForm = (props: MakerFormProps) => {
     const [inputFields, setInputFields] = useState({})
 
     const id = useParams()
+    const navigate = useNavigate()
 
-    const submit = async () => {
+    const submit = async (e: React.FormEvent) => {
+        e.preventDefault()
         await axios
-            .post(`http://localhost:3000/tasks/${id}`, {
+            .get(`http://localhost:3000/tasks/${id}`, {
                 headers: {
                     'Content-Type': `multipart/form-data`,
                 },
@@ -48,10 +51,12 @@ export const MakerForm = (props: MakerFormProps) => {
             )
             .then(response => {
                 console.log(response)
-                alert(response)
+                enqueueSnackbar('Notify')
+                navigate('/maker')
             })
             .catch(err => {
-                alert(err)
+                enqueueSnackbar('Error')
+                navigate('/maker')
             })
     }
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -66,7 +71,7 @@ export const MakerForm = (props: MakerFormProps) => {
             {/* {
                 JSON.stringify(payload)
             } */}
-            <form onSubmit={submit}>
+            <form>
                 <Box display='grid' gridTemplateColumns="repeat(4, 1fr)" gap={3}>
                     <FormControl>
                         <FormLabel> National ID</FormLabel>
@@ -149,10 +154,9 @@ export const MakerForm = (props: MakerFormProps) => {
                     </FormControl>
                 </Box>
 
-                <Stack direction='row' gap={3} justifyContent='space-between' sx={{ width: '50vw', ml: 'auto', my: '64px' }}>
-                    <Button type="submit" size='large' variant='contained' color='primary'> Complete Task </Button>
-                    <Button size='large' variant='contained' color='error'> Terminate </Button>
-                    <Button size='large' variant='outlined'> Save & Exit </Button>
+                <Stack direction='row' gap={3} justifyContent='space-between' sx={{ width: '30vw', ml: 'auto', my: '64px' }}>
+                    <Button onClick={submit} size='large' variant='contained' color='primary'> Complete Task </Button>
+                    <Button onClick={submit}  size='large' variant='outlined'> Save & Exit </Button>
                 </Stack>
             </form >
         </>

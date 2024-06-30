@@ -28,7 +28,7 @@ export const MakerEdits = () => {
 
                 <Typography variant="h3"> Maker  </Typography>
                 <br />
-                <Typography variant='body2'> Updating {task.firstName}'s Task</Typography>
+                <Typography variant='body2'> Working on {task.firstName}'s Task</Typography>
 
                 <br />
 

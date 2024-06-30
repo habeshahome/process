@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import CheckerTaskTable from './CheckerTasksTable';
 
-const steps = ['Start', 'Update Details', 'Approve Details', 'Completed'];
 
 export const Checker = () => {
 

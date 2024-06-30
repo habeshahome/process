@@ -1,14 +1,34 @@
-import { Button, ButtonGroup, Container, Divider, Stack, Table, Typography } from "@mui/material"
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
+import { Box, Button, ButtonGroup, Container, Divider, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
 export const Modeler = () => {
+    const [selectedFile, setSelectedFile] = useState()
+    const [preview, setPreview] = useState()
+
+    // create a preview as a side effect, whenever selected file is changed
+    useEffect(() => {
+        if (!selectedFile) {
+            setPreview(undefined)
+            return
+        }
+
+        const objectUrl = URL.createObjectURL(selectedFile)
+        setPreview(objectUrl)
+
+        // free memory when ever this component is unmounted
+        return () => URL.revokeObjectURL(objectUrl)
+    }, [selectedFile])
+
+    const onSelectFile = e => {
+        if (!e.target.files || e.target.files.length === 0) {
+            setSelectedFile(undefined)
+            return
+        }
+
+        // I've kept this example simple by using the first image instead of multiple
+        setSelectedFile(e.target.files[0])
+    }
 
     return (
         <>
@@ -29,13 +49,23 @@ export const Modeler = () => {
                     </ButtonGroup>
                 </Stack>
                 <Divider sx={{ mt: 9, mb: 3 }} />
-                <Stack direction='column' gap={3}>
-                    <Stack direction='row' gap={3}>
-                        <Typography variant="h6"> Projects </Typography>
-                        <Typography variant="h6"> Shared Resources</Typography>
-                    </Stack>
-                    <ProjectsTable />
-                </Stack>
+                <Box display='grid' gridTemplateColumns='2fr 5fr 5fr' sx={{ textAlign: 'center' }}>
+                    <Box>
+                        <Box>
+                            <Typography variant="h6"> Upload BPMN Diagram </Typography>
+                            <input type='file' onChange={onSelectFile} />
+                        </Box>
+                        <Divider orientation="vertical" />
+                    </Box>
+                    <Box sx={{ flexGrow: 0, maxWidth: '500px'}}>
+                        {selectedFile && <img src={preview} alt=""/>}
+                        <Divider orientation="vertical" />
+                    </Box>
+                    <Box>
+                        JSON
+                    </Box>
+                </Box>
+
             </Container>
         </>
     )
@@ -44,62 +74,3 @@ export const Modeler = () => {
 
 
 
-
-function createData(
-    name: string,
-    content: string,
-    lastChanged: string | Date,
-    collaborators: string,
-) {
-    return { name, content, lastChanged, collaborators }
-}
-
-
-export default function ProjectsTable() {
-
-    const [projectData, setProjectData] = useState<{ name: string, contennt: string }[]>()
-
-    useEffect(() => {
-        axios.get('http://localhost:3000/projects')
-            .then(response => setProjectData(response.data))
-            .catch((err) =>
-                console.log(err, "failed to fetch data")
-            )
-    }, [])
-
-    const rows = [
-        createData('ID Update Process', '1 file', new Date(2023, 1, 11), "Bamlak"),
-        createData('Event Registration Process', '2 files', new Date(2020, 12, 12), "Bamlak"),
-        createData('Quick Start MicroService', '1 file', new Date(1999, 11, 30), "Bamlak")
-    ]
-
-    return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">Content</TableCell>
-                        <TableCell align="right">Last Changed</TableCell>
-                        <TableCell align="right">Collaborators</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <TableRow
-                            key={row.name}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.content}</TableCell>
-                            <TableCell align="right">{String(row.lastChanged)}</TableCell>
-                            <TableCell align="right">{row.collaborators}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    )
-}
