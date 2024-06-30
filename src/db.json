@@ -1,0 +1,111 @@
+{
+  "nodes": [
+    { "id": "1", "title": "a title", "views": 100 },
+    { "id": "2", "title": "another title", "views": 200 }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "ID Update Process",
+      "content": "1 file",
+      "last_updated": "Sat Feb 11 2023 00:00:00 GMT+0400 (Gulf Standard Time)",
+      "collaborators": ["Bamlak"]
+    },
+    {
+      "id": 2,
+      "name": "Event Registration Process",
+      "content": "1 file",
+      "last_updated": "Sat Feb 11 2023 00:00:00 GMT+0400 (Gulf Standard Time)",
+      "collaborators": ["Bamlak"]
+    },
+    {
+      "id": 3,
+      "name": "Quick Start MicroService",
+      "content": "1 file",
+      "last_updated": "Sat Feb 11 2023 00:00:00 GMT+0400 (Gulf Standard Time)",
+      "collaborators": ["Bamlak"]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "nationalId": "123",
+      "firstName": "John",
+      "middleName": "Doe",
+      "lastName": "Joe",
+      "nationality": "American",
+      "countryOfResidence": "USA",
+      "segment": "Premium",
+      "subSegment": "Gold",
+      "businessOwner": true,
+      "vipIndicator": true,
+      "registeredPhoneNumber": "123-456-7890",
+      "registeredEmailAddress": "john.doe@example.com",
+      "passportNumber": "A12345678",
+      "natureOfBusiness": "Software",
+      "employmentStatus": "Employed",
+      "nationalIdExpiry": "2025-01-01T000:00:00.000Z",
+      "sentToChecker": false
+    },
+    {
+      "id": "2",
+      "nationalId": "456",
+      "firstName": "Ashfaq",
+      "middleName": "Mohammed",
+      "lastName": "Moosa",
+      "nationality": "American",
+      "countryOfResidence": "USA",
+      "segment": "Premium",
+      "subSegment": "Gold",
+      "businessOwner": true,
+      "vipIndicator": true,
+      "registeredPhoneNumber": "123-456-7890",
+      "registeredEmailAddress": "john.doe@example.com",
+      "passportNumber": "A12345678",
+      "natureOfBusiness": "Software",
+      "employmentStatus": "Employed",
+      "nationalIdExpiry": "2025-01-01T000:00:00.000Z",
+      "sentToChecker": false
+    },
+    {
+      "id": "3",
+      "nationalId": "789",
+      "firstName": "Aditi",
+      "middleName": "Tiwari",
+      "lastName": "Ola",
+      "nationality": "American",
+      "countryOfResidence": "USA",
+      "segment": "Premium",
+      "subSegment": "Gold",
+      "businessOwner": true,
+      "vipIndicator": true,
+      "registeredPhoneNumber": "123-456-7890",
+      "registeredEmailAddress": "john.doe@example.com",
+      "passportNumber": "A12345678",
+      "natureOfBusiness": "Software",
+      "employmentStatus": "Employed",
+      "nationalIdExpiry": "2025-01-01T000:00:00.000Z",
+      "sentToChecker": false
+    },
+    {
+      "id": "4",
+      "nationalId": "987",
+      "firstName": "Bamlak",
+      "middleName": "Endal",
+      "lastName": "Kemaw",
+      "nationality": "American",
+      "countryOfResidence": "USA",
+      "segment": "Premium",
+      "subSegment": "Gold",
+      "businessOwner": true,
+      "vipIndicator": true,
+      "registeredPhoneNumber": "123-456-7890",
+      "registeredEmailAddress": "john.doe@example.com",
+      "passportNumber": "A12345678",
+      "natureOfBusiness": "Software",
+      "employmentStatus": "Employed",
+      "nationalIdExpiry": "2025-01-01T000:00:00.000Z",
+      "sentToChecker": false
+    }
+  ]
+}
